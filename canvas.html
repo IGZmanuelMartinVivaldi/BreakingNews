@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<HTML>
+<HEAD>
+<TITLE>Canvas 1</TITLE>
+
+<style>
+    #iCanvasMak{position:absolute; top:0; left:0;}
+    #iCanvas{position:absolute; top:0; left:0;}
+</style>
+
+<SCRIPT>
+var iCanvas, iCanvasMask;
+var context, contextMask;
+var sinY = 0;
+var ToRad = Math.PI/180;
+var nCobs=80;
+var nCobsSize = 30
+var a_oCobs = []
+
+window.addEventListener ("load", InitCanvas, false); 
+
+       var skydiverImage=new Image();
+      skydiverImage.src="pix/skydiver.png";
+
+
+
+function InitCanvas () {
+console.log(1)
+	iCanvas = document.getElementById("iCanvas");
+console.log(iCanvas.getContext)
+	if (!iCanvas || !iCanvas.getContext) {
+		return
+	}
+//	InitCobs()
+	InitCanvasMak()
+
+	context = iCanvas.getContext("2d")
+	iCanvas.addEventListener ("mousemove",MouseMove,false)
+	CanvasLoop()
+}
+
+   var red=new Image();
+	var imageMask=new Image();
+
+
+function InitCanvasMak (){
+	iCanvasMask = document.getElementById("iCanvasMask");
+	contextMask = iCanvasMask.getContext("2d")
+
+	contextMask.fillStyle = '#FF3030';	
+	contextMask.fillText ("FPS: ESTO ES UNA PRUEBALARGA ero muy largade texto", 0, 100)
+
+console.log(10)
+    red.onload=function(){
+console.log(20)
+//       contextMask.drawImage(red,0,0);
+
+        imageMask.onload = function() {
+ console.log(30)
+/*
+          var pattern = contextMask.createPattern(imageObj, 'repeat');
+          contextMask.globalCompositeOperation = 'source-in';
+          contextMask.rect(0, 0, 400, 400);
+          contextMask.fillStyle = pattern;
+          contextMask.fill();
+
+alert(1)
+*/
+
+
+/* 
+    contextMask.save();
+ 
+    // Create a circle
+    contextMask.beginPath();
+    contextMask.arc(306, 77, 74, 0, Math.PI * 2, false);
+    contextMask.clip(); 
+    contextMask.drawImage(imageObj, 0, 0);
+ contextMask.restore();
+
+
+    contextMask.save();
+    contextMask.beginPath();
+    contextMask.arc(206, 77, 74, 0, Math.PI * 2, false);
+    contextMask.clip(); 
+    contextMask.drawImage(imageObj, 0, 0);
+ contextMask.restore();
+
+    contextMask.save();
+    contextMask.beginPath();
+    contextMask.arc(106, 77, 74, 0, Math.PI * 2, false);
+    contextMask.clip(); 
+    contextMask.drawImage(imageObj, 0, 0);
+    contextMask.restore();
+*/
+        };
+        imageMask.src = "pix/foto.jpg";
+        
+        
+    }
+    red.src="pix/mask.png";
+
+
+	
+}
+
+/*
+function InitCobs() {
+	for (var f=0;f<nCobs;f++){
+		a_oCobs[f] = new Cob (f*10)
+	}
+}
+*/
+
+function frameRate () {
+	this.count=0;
+	var dTemp = new Date();
+	this.last = dTemp.getTime();
+	this.ctr=0; 
+}
+
+frameRate.prototype.counter = function(){
+	var dTemp = new Date();
+	this.ctr++;
+	if (dTemp.getTime() >= this.last+1000){
+//console.log ("frame event");
+		this.count = this.ctr;
+		
+		if (this.count!=FRAME_RATE) {
+			if (this.count<frameRateC){		//ajustamos FrameRate
+				frameRateC = this.count;
+			}
+			else if (frameRateC<FRAME_RATE) {
+				frameRateC++;
+			}
+			intervalTime = 1000/frameRateC;
+		}
+		this.last = dTemp.getTime();
+		this.ctr=0;
+	}	
+}
+
+var nCobsX0=0
+var nCobsY0=0
+
+function MouseMove(e) {
+	if (!e) e=event;
+
+	if (a_oCobs.length<nCobs) {
+		var x = e.pageX-iCanvas.offsetLeft
+		var y = e.pageY-iCanvas.offsetTop
+		
+//console.log ("X="+x+",Y="+y)	
+		if (Math.abs(nCobsX0-x)>nCobsSize/2 || Math.abs(nCobsY0-y)>nCobsSize/2) {
+			nCobsX0=x
+			nCobsY0=y
+			x -=(nCobsSize/2)
+			y -=(nCobsSize/2)
+			nRotation = Math.random()*10;
+			a_oCobs[a_oCobs.length] = new Cob (x,y,nCobsSize,nRotation)
+
+	var center = nCobsSize/2
+	var angleRadians = nRotation * ToRad;
+
+contextMask.save(); 
+/*
+	contextMask.setTransform(1,0,0,1,0,0)
+	contextMask.rotate (angleRadians)
+*/
+
+
+    contextMask.beginPath();
+//    contextMask.arc(306, 77, 74, 0, Math.PI * 2, false);
+
+//	contextMask.translate (x+center, y+center)
+	
+          contextMask.rect(x, y, nCobsSize, nCobsSize);
+ //         contextMask.fillStyle = 'green';
+
+    contextMask.clip(); 
+    contextMask.drawImage(imageMask, 0, 0);
+ contextMask.restore();
+
+
+/*	
+	var center = nCobsSize/2
+	contextMask.translate (x+center, y+center)
+	var centerX = center-1
+	var centerY = center-1
+
+	contextMask.strokeStyle = "rgba(255, 255, 0, 0)";	//"#808080"
+
+ contextMask.save();
+	contextMask.beginPath()
+	contextMask.moveTo(-centerX,-centerY)
+	contextMask.lineTo(centerX,-centerY)
+	contextMask.lineTo(centerX,centerY)
+	contextMask.lineTo(-centerX,centerY)
+	contextMask.lineTo(-centerX,-centerY)	
+	contextMask.closePath()
+	contextMask.stroke()
+
+    contextMask.clip(); 
+    contextMask.drawImage(imageMask, 0, 0);
+*/
+ contextMask.restore();
+ 
+ 
+		}
+
+	}
+}
+
+function Cob (x,y,size,rotation) {
+	this.x=x
+	this.y=y
+	this.size= size
+	this.center = size/2
+	this.speed = Math.random()*5
+	this.rotation= Math.random()
+	this.rotationSpeed= rotation;
+	
+	this.life = 2 * frameRateC;	//en segundos
+}
+
+Cob.prototype.Update = function (index, x,y) {
+	this.life--
+	if (!this.life) {	//lo eliminamos
+		a_oCobs.splice(index, 1);
+	}
+	else {
+		this.x += x
+		this.y += y
+		this.size += this.speed
+		this.center = this.size/2
+		this.rotation += this.rotationSpeed
+
+	}
+}
+
+Cob.prototype.Draw = function () {
+	var angleRadians = this.rotation * ToRad;
+	context.save()
+	context.setTransform(1,0,0,1,0,0)
+
+
+//	context.fillStyle = "rgba(255, 255, 255, 0.2)";	
+  context.fillStyle = 'blue';
+	context.globalAlpha = this.life/100
+	
+	context.translate (this.x+this.center, this.y+this.center)
+	context.rotate (angleRadians)
+//	context.strokeStyle = "rgba(255, 255, 255, 0//)";	//"#808080"
+	
+	var centerX = this.center-1
+	var centerY = this.center-1
+
+	context.beginPath()
+
+          context.rect(-centerX, -centerY, this.size, this.size);
+/*
+	context.moveTo(-centerX,-centerY)
+	context.lineTo(centerX,-centerY)
+	context.lineTo(centerX,centerY)
+	context.lineTo(-centerX,centerY)
+	context.lineTo(-centerX,-centerY)	
+	context.closePath()
+	context.stroke()
+*/
+	context.fill()
+      	
+	context.restore()	
+}
+
+
+function Update(){
+	frameRate.last ++;	
+	frameRate.counter();
+	for (var f=0;f<a_oCobs.length;f++){
+		a_oCobs[f].Update(f,.2,.1)
+	}
+}
+
+function Render() {
+/*
+	context.fillStyle = '#c0c0c0';
+	context.fillRect (0,0,500,500);
+*/
+	context.save()
+	context.clearRect(0,0,iCanvas.width,iCanvas.height);
+
+	context.fillStyle = '#303030';	
+	context.fillText ("FPS: " + frameRate.count, 0, 100)
+	context.fillText ("COBs: " + a_oCobs.length, 0, 120)
+sinY +=0.1
+
+
+	for (f=0;f<20;f++) {
+
+	context.globalAlpha = ((f+1)/20)
+		context.font = (8+(f%20))+'px arial'
+		context.fillText (f, f*5, 140+f+10*(Math.sin(sinY)))
+context.drawImage(skydiverImage,50+(f*40), 40+f+10*(Math.sin(sinY)),100/(1+f/10),100/(1+f/10));
+
+	}
+
+	for (var f=0;f<a_oCobs.length;f++){
+		a_oCobs[f].Draw()
+	}
+	context.globalAlpha = 1
+	
+	context.restore()
+
+}
+
+
+function CanvasLoop(){
+//console.log ("IT: "+intervalTime)
+	Update()
+	Render()
+	window.setTimeout(CanvasLoop, intervalTime)	
+}
+
+frameRate = new frameRate()
+const FRAME_RATE = 30;
+var frameRateC = FRAME_RATE;
+var intervalTime = 1000/frameRateC;
+
+
+
+</SCRIPT>
+
+
+
+</HEAD>
+
+<BODY>
+
+<DIV>
+	<CANVAS id='iCanvas' width=800 height=200>¿HTML 4?</CANVAS>
+	<CANVAS id='iCanvasMask' width=400 height=400 style='background-color:#EEE'>¿HTML 4?</CANVAS>
+</DIV>
+http://stackoverflow.com/questions/15526943/in-html5-canvas-how-to-mask-an-image-with-a-background-of-my-choice
+
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<HTML>
+<HEAD>
+<TITLE>iText 1</TITLE>
+
+<SCRIPT>
+
+window.addEventListener ("load", InitText, false); 
+
+
+function InitText () {
+	iText = document.getElementById("iText");
+
+console.log(10)
+	if (!iText) {
+console.log("error")
+		return;		
+	}
+console.log(20)
+
+	sText = "Esta es la prueba"
+	var sHtml = ""
+	for (f=0;f<sText.length;f++) {
+		iSpanT = document.createElement ("span")
+		iSpanT.innerHTML = sText[f]
+		iText.appendChild (iSpanT)
+console.log(iSpanT.offsetLeft+","+iSpanT.offsetTop+ " . ")
+
+	}
+//	iText.innerHTML = sHtml
+
+
+}
+
+</SCRIPT>
+
+
+
+</HEAD>
+
+<BODY>
+
+
+<DIV id='iText' height=100 style='width:100px;background-color:#ff0000'>AS</DIV>
+
+</BODY>
+</HTML>
