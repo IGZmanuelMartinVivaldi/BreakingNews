@@ -5,8 +5,8 @@
 <TITLE>Canvas 1</TITLE>
 
 <style>
-    #iCanvasMak{position:absolute; top:0; left:0;}
-    #iCanvas{position:absolute; top:0; left:0;}
+    #iCanvasMak{position:absolute; top:0; left:100;}
+    #iCanvas{position:absolute; top:0; left:100;}
 </style>
 
 <SCRIPT>
@@ -220,6 +220,10 @@ function Cob (x,y,size,rotation) {
 	this.speed = Math.random()*5
 	this.rotation= Math.random()
 	this.rotationSpeed= rotation;
+
+//.color
+//.polygon (triangle, rectangle)
+//.drawMode (rect/poly)
 	
 	this.life = 2 * frameRateC;	//en segundos
 }
@@ -245,9 +249,9 @@ Cob.prototype.Draw = function () {
 	context.setTransform(1,0,0,1,0,0)
 
 
-//	context.fillStyle = "rgba(255, 255, 255, 0.2)";	
-  context.fillStyle = 'blue';
-	context.globalAlpha = this.life/100
+	context.fillStyle = "rgba(150, 190, 210, 0.99)";	
+//  context.fillStyle = 'blue';
+	context.globalAlpha = this.life/(2 * frameRateC)	//100
 	
 	context.translate (this.x+this.center, this.y+this.center)
 	context.rotate (angleRadians)
@@ -258,7 +262,15 @@ Cob.prototype.Draw = function () {
 
 	context.beginPath()
 
-          context.rect(-centerX, -centerY, this.size, this.size);
+//Rect          context.rect(-centerX, -centerY, this.size, this.size);
+
+//Tri
+	context.moveTo(centerX,centerY-this.size/2)
+	context.lineTo(centerX+this.size/2,centerY+this.size)
+	context.lineTo(centerX-this.size,centerY)
+
+
+
 /*
 	context.moveTo(-centerX,-centerY)
 	context.lineTo(centerX,-centerY)
@@ -337,7 +349,7 @@ var intervalTime = 1000/frameRateC;
 
 <BODY>
 
-<DIV>
+<DIV style='margin-left:100px'>
 	<CANVAS id='iCanvas' width=800 height=200>¿HTML 4?</CANVAS>
 	<CANVAS id='iCanvasMask' width=400 height=400 style='background-color:#EEE'>¿HTML 4?</CANVAS>
 </DIV>
