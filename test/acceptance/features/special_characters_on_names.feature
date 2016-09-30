@@ -12,7 +12,7 @@ Feature: Special characters on names
     Then the response status code is 201
 
     Examples:
-      | Name      |
+      | NAME      |
       | AaAa 1    |
       | asdf-sadf |
       | asdf_sadf |
