@@ -5,7 +5,6 @@ Feature: Special characters on names
   As an api client
   I want to be able to send special characters on names
 
-@tag1
   Scenario Outline: valid names on creation
     Given XXX1
     When I request creation of new blueprint with following data
