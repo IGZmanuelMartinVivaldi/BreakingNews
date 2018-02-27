@@ -10,3 +10,10 @@ Feature: My feature 4
     Given rewrew
     When dsgfs  fv
     Then acdfsgvcdsvg vvfsd
+
+@draft @draft_scenario
+  Scenario: My Scenario
+    Given faefae1
+      |  |  |  |
+      |  |  |  |
+      |  |  |  |
