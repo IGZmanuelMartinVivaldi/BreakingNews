@@ -11,6 +11,20 @@ Feature: My feature 4
     When dsgfs  fv
     Then acdfsgvcdsvg vvfsd
 
+@test
+  Scenario Outline: My Scenario 1 Copy
+    Given an outline scenari
+      | C1  |                                                           |                                                                               |
+      | C11 | fvgadfgkdplk bk kpo`kbdgfk gogkb pogkpo`k gpoki gtignki n | bvcbcv kkpol kcvk kk pokcovk pokpo kpolcvpok vpokj polkm pokj pokj opvkj jcvx |
+    When a file is deleted
+    And i am stupid
+    And i want to recover it
+    Then hfdb cnnghnv
+
+    Examples:
+      | Example 1 |
+      | Val 1     |
+
 @draft @draft_scenario
   Scenario: My Scenario
     Given faefae1
