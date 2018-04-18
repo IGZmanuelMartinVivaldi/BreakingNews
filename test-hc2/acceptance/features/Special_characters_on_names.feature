@@ -15,7 +15,7 @@ Feature: Special characters on names
 
     Examples:
       | NAME      |
-      | AaAa 1    |
+      | AaAa 12   |
       | asdf-sadf |
       | asdf_sadf |
       | asdf.sadf |
