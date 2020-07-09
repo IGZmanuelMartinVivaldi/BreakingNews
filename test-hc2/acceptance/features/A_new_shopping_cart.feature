@@ -9,4 +9,4 @@ Feature: A new shopping cart
     Given A request with id " 0a15d511-4a1e-44ce-89f4-85fb09c9a0a9" is registered into the system h h jhj h jhj hhj jh hj hj kjkjkjkjkj kkk kkkkkkkkkkkkkkhhkhhkhkhkh   hh hjhh hh hh hhh hhhhwith the verification code "111111"
 
   Scenario: Step errors Copy
-    Given A request with id " 0a15d511-4a1e-44ce-89f4-85fb09c9a0a9" is registered into the system with the verification code "111111"
+    Given A request with id "0a15d511-4a1e-44ce-89f4-85fb09c9a0a9" is registered into the system with the verification code "111111"
